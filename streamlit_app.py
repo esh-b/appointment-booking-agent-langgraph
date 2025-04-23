@@ -2,7 +2,7 @@ import uuid
 
 import streamlit as st
 
-from app.agents.booking_agent import booking_agent_graph
+from agent.booking_agent import booking_agent_graph
 
 
 if __name__ == '__main__':
