@@ -4,6 +4,15 @@ This repository contains a working prototype of Michelle, an appointment managem
 
 Please note that this a work in progress (its Version0), and serves as an early-stage prototype. The goal is to eventually evolve it into a production-ready system. The current system can only book appointments; rescheduling and cancelling features are being developed.
 
+## In progress
+- Appointment rescheduling or cancellation features.
+- Answer FAQ questions about the salon timings, etc
+- Allow to book with specific stylists at the salon (as is the case with certain well-known salons).
+- Decouple LangGraph agent (backend) from Streamlit (frontend); expose the backend as a containerized FastAPI endpoint.
+- Make SQL backend (checking availability) more efficient to handle lots of appointment requests.
+- Develop a voice agent for practical applications.
+
+
 ## Project structure
 ```bash
 ├── LICENSE
