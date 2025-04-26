@@ -15,7 +15,7 @@ def create_bookings_db(db_name=DB_NAME):
         # Create Customer table
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS Customer (
-                customer_id TEXT PRIMARY KEY,
+                id TEXT PRIMARY KEY,
                 name TEXT NOT NULL,
                 phone_number TEXT NOT NULL,
                 email TEXT,
@@ -26,7 +26,7 @@ def create_bookings_db(db_name=DB_NAME):
         # Create Bookings table
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS Bookings (
-                booking_id TEXT PRIMARY KEY,
+                id TEXT PRIMARY KEY,
                 customer_id TEXT NOT NULL,
                 start_datetime DATETIME NOT NULL,
                 end_datetime DATETIME NOT NULL,

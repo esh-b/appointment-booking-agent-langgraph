@@ -10,7 +10,7 @@ Please note that this a work in progress (its Version0), and serves as an early-
 - Allow to book with specific stylists at the salon (as is the case with certain well-known salons).
 - Decouple LangGraph agent (backend) from Streamlit (frontend); expose the backend as a containerized FastAPI endpoint.
 - Make SQL backend (checking availability) more efficient to handle lots of appointment requests.
-- Develop a voice agent for practical applications.
+- Make this a voice agent eventually for practical applications.
 
 
 ## Project structure

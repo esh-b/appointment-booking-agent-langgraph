@@ -97,3 +97,18 @@ def book_appointment(appointment_start_dt: str, user_name: str, user_phone_numbe
             return {'status': 'failure', 'reason': 'The requested timeslot is no longer available'}
     else:
         return {'status': 'failure', 'reason': failure_reason}
+
+
+@tool
+def retrieve_active_bookings_user(user_phone_number: str) -> dict | None:
+    return get_active_bookings_user(user_phone_number)
+
+
+@tool
+def reschedule_appointment(booking_id):
+    pass
+
+
+@tool
+def cancel_appointment(booking_id):
+    pass

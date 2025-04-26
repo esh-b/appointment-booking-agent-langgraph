@@ -10,13 +10,21 @@ SLOT_AVAILABLE_QUERY = """
       AND end_datetime > ?
 """
 ADD_CUSTOMER_QUERY = """
-INSERT INTO Customer (customer_id, name, phone_number, email, created_at)
+INSERT INTO Customer (id, name, phone_number, email, created_at)
 VALUES (?, ?, ?, ?, ?);
 """
 ADD_BOOKING_QUERY = """
     INSERT INTO Bookings (
-        booking_id, customer_id, start_datetime, end_datetime, booking_reason, created_at
+        id, customer_id, start_datetime, end_datetime, booking_reason, created_at
     ) VALUES (?, ?, ?, ?, ?, ?);
+"""
+GET_USER_QUERY = """
+    SELECT * FROM Customer
+    WHERE user_phone_number = ?
+"""
+GET_ACTIVE_BOOKINGS_USER_QUERY = """
+    SELECT * FROM Bookings
+    WHERE customer_id = ? AND status = 'scheduled'
 """
 
 
@@ -102,8 +110,28 @@ def add_booking(
         print(f"Unexpected error while adding customer: {e}")
 
 
-if __name__ == '__main__':
-    booking_id = add_booking('2025-04-23T08:00:00-04:00', 'Vishwa', '6479999999')
-    print(booking_id)
-    result = is_slot_available('2025-04-23T09:00:00-04:00')
-    print(result)
+def get_active_bookings_user(user_phone_number: str):
+    with sqlite3.connect(DB_PATH) as conn:
+        conn.row_factory = sqlite3.Row
+
+        cursor = conn.cursor()
+        cursor.execute(GET_USER_QUERY, (user_phone_number))
+        customer = cursor.fetchone()
+
+        if customer is None:
+            print('There is no customer with the provided phone number and consequently, no appointments')
+            return
+
+        cursor.execute(GET_ACTIVE_BOOKINGS_USER_QUERY, (customer[0]['id']))
+        customer_bookings = cursor.fetchall()
+        if customer_bookings is None:
+            print('There are no active bookings for the customer')
+            return
+
+        return customer_bookings
+
+# if __name__ == '__main__':
+#     booking_id = add_booking('2025-04-23T08:00:00-04:00', 'Vishwa', '6479999999')
+#     print(booking_id)
+#     result = is_slot_available('2025-04-23T09:00:00-04:00')
+#     print(result)
