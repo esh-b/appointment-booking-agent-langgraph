@@ -17,19 +17,20 @@ Please note that this a work in progress (its Version0), and serves as an early-
 ```bash
 ├── LICENSE
 ├── README.md
-├── agent 					  ← Core Langgraph agent logic
+├── agent                           ← Core Langgraph agent logic
 │   ├── __init__.py
 │   ├── booking_agent.py
 │   ├── prompts.py
 │   ├── tools.py
 │   └── utils.py
-├── database				  ← Scripts to create and interact with the DB
+├── database                        ← Scripts to create and interact with the database
+│   ├── __init__.py
 │   ├── create_sqlite_db.py
 │   └── utils.py
 ├── requirements.txt
-├── resources				  ← Assets
-├── streamlit_app.py          ← Main entry point for the application
-└── .env.example
+├── resources                       ← Assets
+├── streamlit_app.py                ← Main entry point for the Streamlit application
+└── .env.example                    ← Example env config
 ```
 
 ## Get started
@@ -45,6 +46,7 @@ Initialize the local SQLite database by running:
 ```bash
 python database/create_sqlite_db.py
 ```
+This would create a new sqlite file `bookings.sqlite` in the current directory by default.
 
 ### 3. Run the Streamlit App
 Launch the UI using:
@@ -54,6 +56,6 @@ streamlit run streamlit_app.py
 ```
 The app will open in your browser at http://localhost:8501 by default.
 
-## ⚠️ Disclaimer
+## Disclaimer
 
 This is a work-in-progress project and not suitable for production use yet. Features may be incomplete, and the codebase is subject to frequent changes.
