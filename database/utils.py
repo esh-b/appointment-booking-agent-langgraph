@@ -75,7 +75,7 @@ def is_slot_available(start_iso: str, DB_PATH=DB_PATH) -> bool:
     with sqlite3.connect(DB_PATH) as conn:
         available_slots_df = pd.read_sql_query(
             sql=SLOT_AVAILABLE_QUERY,
-            conn=conn,
+            con=conn,
             params=(end_dt_utc.isoformat(), start_dt_utc.isoformat()))
         return available_slots_df.empty
 
@@ -154,11 +154,11 @@ def get_active_bookings_user(user_phone_number: str) -> []:
         bookings_df = pd.read_sql_query(GET_ACTIVE_BOOKINGS_USER_QUERY, conn, params=(customer_df.loc[0, 'id'],))
         if bookings_df.empty:
             print('There are no active bookings for the customer')
-            return
+            return []
         return bookings_df[['id', 'start_datetime', 'end_datetime']].to_dict(orient='records')
 
 
-def reschedule_booking(booking_id, user_phone_number, updated_start_dt_str):
+def reschedule_booking(booking_id, updated_start_dt_str, user_phone_number):
     start_dt_utc = datetime.datetime.fromisoformat(updated_start_dt_str).astimezone(pytz.utc)
     end_dt_utc = start_dt_utc + datetime.timedelta(hours=BOOKING_SLOT_DURATION_HRS)
     current_dt = datetime.datetime.now(pytz.utc)
