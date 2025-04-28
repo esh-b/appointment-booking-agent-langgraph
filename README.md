@@ -17,35 +17,18 @@ Please note that this a work in progress (its Version0), and serves as an early-
 ```bash
 ├── LICENSE
 ├── README.md
-├── agent/                    ← Core Langgraph agent logic
-│   ├── __init__.py
-│   ├── booking_agent.py
-│   ├── prompts.py
-│   └── tools.py
-├── database/                 ← Scripts to create and interact with the DB
-│   ├── __init__.py
-│   ├── create_sqlite_db.py
-│   └── db_utils.py
-├── requirements.txt
-├── resources/                ← Assets
-└── streamlit_app.py          ← Main entry point for the application
-```
-
-```
-├── LICENSE
-├── README.md
-├── agent
+├── agent 					  ← Core Langgraph agent logic
 │   ├── __init__.py
 │   ├── booking_agent.py
 │   ├── prompts.py
 │   ├── tools.py
 │   └── utils.py
-├── database
+├── database				  ← Scripts to create and interact with the DB
 │   ├── create_sqlite_db.py
 │   └── utils.py
 ├── requirements.txt
-├── resources
-├── streamlit_app.py
+├── resources				  ← Assets
+├── streamlit_app.py          ← Main entry point for the application
 └── .env.example
 ```
 
