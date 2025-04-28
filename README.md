@@ -2,7 +2,7 @@
 
 This repository contains a working prototype of Michelle, an appointment management agent for Shine & Style, a local hair salon. Built using **LangGraph**, **Streamlit**, and **OpenAI** models, this project showcases a conversational assistant capable of handling salon bookings.
 
-Please note that this a work in progress (its Version0), and serves as an early-stage prototype. The goal is to eventually evolve it into a production-ready system. The current system can only book appointments; rescheduling and cancelling features are being developed.
+Please note that this a work in progress (its Version0), and serves as an early-stage prototype. The goal is to eventually evolve it into a production-ready system. The current system can currently book, reschedule and cancel appointments.
 
 ## In progress
 - [X] Appointment rescheduling or cancellation features.
@@ -29,6 +29,24 @@ Please note that this a work in progress (its Version0), and serves as an early-
 ├── requirements.txt
 ├── resources/                ← Assets
 └── streamlit_app.py          ← Main entry point for the application
+```
+
+```
+├── LICENSE
+├── README.md
+├── agent
+│   ├── __init__.py
+│   ├── booking_agent.py
+│   ├── prompts.py
+│   ├── tools.py
+│   └── utils.py
+├── database
+│   ├── create_sqlite_db.py
+│   └── utils.py
+├── requirements.txt
+├── resources
+├── streamlit_app.py
+└── .env.example
 ```
 
 ## Get started
