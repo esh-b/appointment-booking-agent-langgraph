@@ -27,13 +27,13 @@ def create_bookings_db(db_name=DB_NAME):
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS Bookings (
                 id TEXT PRIMARY KEY,
-                customer_id TEXT NOT NULL,
+                customer TEXT NOT NULL,
                 start_datetime DATETIME NOT NULL,
                 end_datetime DATETIME NOT NULL,
                 booking_reason TEXT,
                 status TEXT DEFAULT 'scheduled',
                 created_at DATETIME NOT NULL,
-                FOREIGN KEY (customer_id) REFERENCES Customer(customer_id),
+                FOREIGN KEY (customer) REFERENCES Customer(id),
                 UNIQUE (start_datetime, end_datetime)
             );
         """)
@@ -41,7 +41,7 @@ def create_bookings_db(db_name=DB_NAME):
         # Indexes for efficient slot searching
         cursor.execute("""
         CREATE INDEX IF NOT EXISTS idx_booking_time 
-        ON Bookings (start_datetime, end_datetime);
+        ON Bookings (start_datetime, end_datetime, status);
         """)
         cursor.execute("""
         CREATE INDEX IF NOT EXISTS idx_customer_phone 

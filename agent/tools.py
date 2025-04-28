@@ -4,7 +4,15 @@ import pytz
 from langchain_core.tools import tool
 import parsedatetime
 
-from database.db_utils import add_booking, is_slot_available, is_valid_timeslot
+from database.utils import (
+    add_booking,
+    is_slot_available,
+    is_valid_timeslot,
+    get_active_bookings_user,
+    reschedule_booking,
+    cancel_booking
+)
+from agent.utils import change_timezone_iso_dt
 
 
 @tool
@@ -66,7 +74,7 @@ def check_availability(appointment_start_dt: str) -> dict:
 
 
 @tool
-def book_appointment(appointment_start_dt: str, user_name: str, user_phone_number: str):
+def book_appointment(appointment_start_dt: str, user_name: str, user_phone_number: str) -> dict:
     """
     Books an appointment for a user at the specified date and time.
 
@@ -100,15 +108,56 @@ def book_appointment(appointment_start_dt: str, user_name: str, user_phone_numbe
 
 
 @tool
-def retrieve_active_bookings_user(user_phone_number: str) -> dict | None:
-    return get_active_bookings_user(user_phone_number)
+def retrieve_active_bookings_user(user_phone_number: str) -> list:
+    """
+    Retrieves the active bookings for a customer based on their phone number.
+
+    Args:
+        user_phone_number (str): The phone number of the customer whose active bookings are to be retrieved.
+
+    Returns:
+        list: A list of active bookings (in dict format)
+    """
+    active_bookings = get_active_bookings_user(user_phone_number)
+    for booking in active_bookings:
+        booking['start_datetime'] = change_timezone_iso_dt(booking['start_datetime'], target_timezone='America/Toronto')
+        booking['end_datetime'] = change_timezone_iso_dt(booking['end_datetime'], target_timezone='America/Toronto')
+    return active_bookings
 
 
 @tool
-def reschedule_appointment(booking_id):
-    pass
+def reschedule_appointment(
+        booking_id_to_reschedule: str,
+        updated_appointment_start_dt: str,
+        user_phone_number: str
+        ) -> str | None:
+    """
+    Reschedule an existing appointment to a new start datetime.
+
+    Args:
+        booking_id_to_reschedule (str): The ID of the old booking to be rescheduled.
+        updated_appointment_start_dt (str): The new appointment start datetime in ISO 8601 format.
+        user_phone_number (str): The phone number of the customer requesting the reschedule.
+
+    Returns:
+        str: The new booking ID created after rescheduling.
+    """
+    return reschedule_booking(
+        booking_id_to_reschedule,
+        updated_appointment_start_dt,
+        user_phone_number
+    )
 
 
 @tool
-def cancel_appointment(booking_id):
-    pass
+def cancel_appointment(booking_id_to_cancel: str) -> bool:
+    """
+    Cancels an existing appointment.
+
+    Args:
+        booking_id_to_cancel (str): The ID of the booking to cancel.
+
+    Returns:
+        bool: True if the booking was successfully cancelled, False otherwise.
+    """
+    return cancel_booking(booking_id_to_cancel)

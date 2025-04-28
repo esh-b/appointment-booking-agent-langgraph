@@ -10,7 +10,14 @@ from langgraph.prebuilt import ToolNode, tools_condition
 from langgraph.checkpoint.memory import MemorySaver
 from langchain_openai import ChatOpenAI
 
-from agent.tools import convert_relative_to_absolute_datetime, check_availability, book_appointment
+from agent.tools import (
+    convert_relative_to_absolute_datetime,
+    check_availability,
+    book_appointment,
+    retrieve_active_bookings_user,
+    reschedule_appointment,
+    cancel_appointment
+)
 from agent.prompts import AGENT_SYSTEM_MESSAGE_PROMPT
 
 
@@ -18,7 +25,14 @@ class AgentState(TypedDict):
     messages: Annotated[list[BaseMessage], add_messages]
 
 
-available_tools = [convert_relative_to_absolute_datetime, check_availability, book_appointment]
+available_tools = [
+    convert_relative_to_absolute_datetime,
+    check_availability,
+    book_appointment,
+    retrieve_active_bookings_user,
+    reschedule_appointment,
+    cancel_appointment
+]
 tool_node = ToolNode(tools=available_tools)
 _llm_with_tools = ChatOpenAI(model='gpt-4o').bind_tools(tools=available_tools)
 system_message = {
