@@ -6,9 +6,9 @@ Please note that this a work in progress (its Version0), and serves as an early-
 
 ## In progress
 - [X] Appointment rescheduling or cancellation features.
+- [X] Decouple LangGraph agent (backend) from Streamlit (frontend); expose the backend as a containerized FastAPI endpoint.
 - [ ] Answer FAQ questions about the salon timings, etc
 - [ ] Allow to book with specific stylists at the salon (as is the case with certain well-known salons).
-- [ ] Decouple LangGraph agent (backend) from Streamlit (frontend); expose the backend as a containerized FastAPI endpoint.
 - [ ] Make SQL backend (checking availability) more efficient to handle lots of appointment requests.
 - [ ] Make this a voice agent eventually for practical applications.
 
