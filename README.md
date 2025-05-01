@@ -15,26 +15,6 @@ Please note that this a work in progress (its Version0), and serves as an early-
 ## Simple System Design
 ![Current System design](resources/system_design_v1.png)
 
-## Project structure
-```bash
-├── LICENSE
-├── README.md
-├── agent                           ← Core Langgraph agent logic
-│   ├── __init__.py
-│   ├── booking_agent.py
-│   ├── prompts.py
-│   ├── tools.py
-│   └── utils.py
-├── database                        ← Scripts to create and interact with the database
-│   ├── __init__.py
-│   ├── create_sqlite_db.py
-│   └── utils.py
-├── requirements.txt
-├── resources                       ← Assets
-├── streamlit_app.py                ← Main entry point for the Streamlit application
-└── .env.example                    ← Example env config
-```
-
 ## Get started
 ### 1. Install Requirements
 Make sure you have Python 3.10+ installed. Then run:
