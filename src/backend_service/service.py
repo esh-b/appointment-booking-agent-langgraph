@@ -24,7 +24,6 @@ def query_langgraph(request: QueryRequest) -> ChatResponse:
             input_state, 
             config={"configurable": {"thread_id": request.thread_id}}
         )
-        print(result)
         bot_response = result['messages'][-1]
         return ChatResponse(response=bot_response.content)
     except Exception as e:
