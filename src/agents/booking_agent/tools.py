@@ -4,7 +4,7 @@ import pytz
 from langchain_core.tools import tool
 import parsedatetime
 
-from database.utils import (
+from agents.booking_agent.database.utils import (
     add_booking,
     is_slot_available,
     is_valid_timeslot,
@@ -12,7 +12,7 @@ from database.utils import (
     reschedule_booking,
     cancel_booking
 )
-from agent.utils import change_timezone_iso_dt
+from agents.booking_agent.utils import change_timezone_iso_dt
 
 
 @tool

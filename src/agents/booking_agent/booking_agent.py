@@ -10,7 +10,7 @@ from langgraph.prebuilt import ToolNode, tools_condition
 from langgraph.checkpoint.memory import MemorySaver
 from langchain_openai import ChatOpenAI
 
-from agent.tools import (
+from agents.booking_agent.tools import (
     convert_relative_to_absolute_datetime,
     check_availability,
     book_appointment,
@@ -18,7 +18,7 @@ from agent.tools import (
     reschedule_appointment,
     cancel_appointment
 )
-from agent.prompts import AGENT_SYSTEM_MESSAGE_PROMPT
+from agents.booking_agent.prompts import AGENT_SYSTEM_MESSAGE_PROMPT
 
 
 class AgentState(TypedDict):
@@ -47,20 +47,23 @@ def llm_call(state: AgentState):
     return {'messages': [response]}
 
 
-def get_graph_builder_object():
-    graph_builder = StateGraph(AgentState)
-    graph_builder.add_node("llm_call", llm_call)
-    graph_builder.add_node("tool_node", tool_node)
-    graph_builder.add_edge(START, 'llm_call')
-    graph_builder.add_conditional_edges(
-        'llm_call', 
-        tools_condition, 
-        {'tools': 'tool_node', END: END}
-    )
-    graph_builder.add_edge('tool_node', 'llm_call')
-    return graph_builder
+class BookingAgent:
+    def __init__(self):
+        self.agent_checkpointer = MemorySaver()
+        self.graph = self._build_graph()
 
+    def _build_graph(self):
+        graph_builder = StateGraph(AgentState)
+        graph_builder.add_node("llm_call", llm_call)
+        graph_builder.add_node("tool_node", tool_node)
+        graph_builder.add_edge(START, 'llm_call')
+        graph_builder.add_conditional_edges(
+            'llm_call', 
+            tools_condition, 
+            {'tools': 'tool_node', END: END}
+        )
+        graph_builder.add_edge('tool_node', 'llm_call')
+        return graph_builder.compile(checkpointer=self.agent_checkpointer)
 
-_memory_saver = MemorySaver()
-_graph_builder = get_graph_builder_object()
-booking_agent_graph = _graph_builder.compile(checkpointer=_memory_saver)
+    def invoke(self, *args, **kwargs):
+        return self.graph.invoke(*args, **kwargs)

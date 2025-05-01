@@ -12,6 +12,8 @@ Please note that this a work in progress (its Version0), and serves as an early-
 - [ ] Make SQL backend (checking availability) more efficient to handle lots of appointment requests.
 - [ ] Make this a voice agent eventually for practical applications.
 
+## Simple System Design
+![Current System design](resources/system_design_v1.png)
 
 ## Project structure
 ```bash
