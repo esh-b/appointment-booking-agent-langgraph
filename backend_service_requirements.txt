@@ -9,4 +9,3 @@ langgraph-prebuilt==0.1.8
 langgraph-sdk==0.1.61
 langsmith==0.3.32
 parsedatetime==2.6
-streamlit==1.44.1

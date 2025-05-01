@@ -16,26 +16,27 @@ Please note that this a work in progress (its Version0), and serves as an early-
 ![Current System design](resources/system_design_v1.png)
 
 ## Get started
-### 1. Install Requirements
-Make sure you have Python 3.10+ installed. Then run:
-```bash
-pip install -r requirements.txt
-```
+### 1. Setting Up Backend Service
+1. **Install Requirements**: Make sure you have Python 3.10+ installed. Then run:
+	```bash
+	pip install -r backend_service_requirements.txt
+	```
+2. **Setting Up Environment Variables:** Set up your `OPENAI_API_KEY` environment variable.
+3. **Run the service:** Run the following command to start the backend service:
+	```bash
+	python src/run_service.py
+	```
+Running the service would create a new sqlite database file `bookings.sqlite` in the current directory if it doesn't exist.
 
-### 2. Setup the Database
-Initialize the local SQLite database by running:
-
-```bash
-python database/create_sqlite_db.py
-```
-This would create a new sqlite file `bookings.sqlite` in the current directory by default.
-
-### 3. Run the Streamlit App
-Launch the UI using:
-
-```bash
-streamlit run streamlit_app.py
-```
+### 2. Setting up Front-End (Streamlit)
+1. **Install Requirements**: Make sure you have Python 3.10+ installed. Then run:
+	```bash
+	pip install -r frontend_requirements.txt
+	```
+2. **Run the service:** Run the following command to start the Streamlit front-end:
+	```bash
+	streamlit run src/streamlit_app.py
+	```
 The app will open in your browser at http://localhost:8501 by default.
 
 ## Disclaimer
