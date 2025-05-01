@@ -50,7 +50,3 @@ def create_bookings_db(db_name=DB_NAME):
 
         conn.commit()
         print(f"Database '{db_name}' created with all tables and indexes.")
-
-
-if __name__ == "__main__":
-    create_bookings_db()

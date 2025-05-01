@@ -26,7 +26,7 @@ Please note that this a work in progress (its Version0), and serves as an early-
 	```bash
 	python src/run_service.py
 	```
-Running the service would create a new sqlite database file `bookings.sqlite` in the current directory if it doesn't exist.
+	Running the service would create a new sqlite database file `bookings.sqlite` in the current directory if it doesn't exist.
 
 ### 2. Setting up Front-End (Streamlit)
 1. **Install Requirements**: Make sure you have Python 3.10+ installed. Then run:
